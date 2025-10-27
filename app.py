@@ -27,6 +27,12 @@ def index():
 @app.post("/api/v1/upload")
 def upload():
     try:
+        # Initialize BlobServiceClient and container client here
+        from azure.storage.blob import BlobServiceClient
+        CONNECTION_STRING = os.environ.get("AZURE_STORAGE_CONNECTION_STRING")
+        bsc = BlobServiceClient.from_connection_string(CONNECTION_STRING)
+        cc = bsc.get_container_client("lanternfly-images-ki3tmbyz")
+
         # Get uploaded file from form-data
         f = request.files["file"]
 
