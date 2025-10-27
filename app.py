@@ -1,9 +1,12 @@
 from flask import Flask, request, jsonify, render_template
 import datetime, os, werkzeug
+from dotenv import load_dotenv
 from azure.storage.blob import BlobServiceClient  # ✅ Required import
 
+# Load local environment variables
+load_dotenv()
+
 # ---------- Configuration ----------
-import os
 
 CONNECTION_STRING = os.environ.get("AZURE_STORAGE_CONNECTION_STRING")
 CONTAINER_NAME = "lanternfly-images-ki3tmbyz"
@@ -60,8 +63,3 @@ def gallery():
 @app.get("/api/v1/health")
 def health():
     return jsonify(ok=True, status="healthy")
-
-
-# ---------- Run app locally ----------
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
